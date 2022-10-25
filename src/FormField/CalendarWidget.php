@@ -70,21 +70,6 @@ class CalendarWidget extends CalendarWidgetBase
         $arrAttributes['calendar']  = $this->objCalendar;
         $arrAttributes['events']    = $this->objEvents;
 
-        // Todo: move this to a template!
-
-        // Add CSS
-        $GLOBALS['TL_CSS']['toastui-calendar']      = 'https://uicdn.toast.com/calendar/latest/toastui-calendar.css';
-        $GLOBALS['TL_CSS']['toastui-timepicker']    = 'https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.css';
-        $GLOBALS['TL_CSS']['toastui-datepicker']    = 'https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css';
-
-        // Add JS
-        $GLOBALS['TL_JAVASCRIPT']['momentjs']               = 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js';
-        //$GLOBALS['TL_JAVASCRIPT']['toastui-codesnippet']    = 'https://uicdn.toast.com/tui.code-snippet/v1.5.2/tui-code-snippet.min.js';
-        $GLOBALS['TL_JAVASCRIPT']['toastui-timepicker']     = 'https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.js';
-        $GLOBALS['TL_JAVASCRIPT']['toastui-datepicker']     = 'https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js';
-        $GLOBALS['TL_JAVASCRIPT']['toastui-calendar']       = 'https://uicdn.toast.com/calendar/latest/toastui-calendar.js';
-        $GLOBALS['TL_JAVASCRIPT']['app-toast-calendar']     = 'bundles/rhymecalendarwidget/assets/js/toastcalendar.js';
-
         return parent::parse($arrAttributes);
     }
 
