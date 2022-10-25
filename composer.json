@@ -1,6 +1,6 @@
 {
   "name": "rhymedigital/contao_rhyme_calendar_widget",
-  "description": "A Contao CMS 4.x bundle that adds a calendar widget that can be used on any DCA.",
+  "description": "A Contao CMS 4.x bundle that adds a calendar widget that can be used with any DCA.",
   "minimum-stability": "stable",
   "type": "contao-bundle",
   "license": "LGPL-2.1-or-later",
@@ -16,14 +16,16 @@
   ],
   "require": {
     "php": "^7.1",
-    "contao/core-bundle": "^4.4"
+    "contao/core-bundle": "^4.9",
+    "codefog/contao-haste": "^4.24"
+
   },
   "require-dev": {
     "contao/manager-plugin": "^2.7"
   },
   "autoload": {
     "psr-4": {
-      "Rhyme\\CalendarWidget\\RhymeContaoWidgetBundle\\": "src"
+      "Rhyme\\CalendarWidget\\": "src"
     }
   },
   "extra": {

@@ -1,0 +1,118 @@
+<?php
+use Contao\Input;
+use Rhyme\CalendarWidget\Model\Calendar as CalendarModel;
+use Rhyme\CalendarWidget\Model\Event as EventModel;
+?>
+<?php $this->extend('be_main') ?>
+
+<?php $this->block('head'); ?>
+    <meta charset="<?= $this->charset ?>">
+    <title><?= $this->title ?> | <?= $this->host ?></title>
+    <base href="<?= $this->base ?>">
+
+    <meta name="generator" content="Contao Open Source CMS">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no">
+    <meta name="referrer" content="origin">
+
+    <link rel="stylesheet" href="<?php
+    $objCombiner = new Contao\Combiner();
+    $objCombiner->add('system/themes/'.$this->theme.'/fonts.min.css');
+    $objCombiner->add('assets/colorpicker/css/mooRainbow.min.css');
+    $objCombiner->add('assets/chosen/css/chosen.min.css');
+    $objCombiner->add('assets/simplemodal/css/simplemodal.min.css');
+    $objCombiner->add('assets/datepicker/css/datepicker.min.css');
+    $objCombiner->add('system/themes/'.$this->theme.'/basic.min.css');
+    $objCombiner->add('system/themes/'.$this->theme.'/main.min.css');
+    echo $objCombiner->getCombinedFile();
+    ?>">
+<?= $this->stylesheets ?>
+
+    <script><?= $this->getLocaleString() ?></script>
+
+<?php if (false): // MooTools breaks ToastUI ?>
+    <script src="<?php
+    $objCombiner = new Contao\Combiner();
+    $objCombiner->add('assets/mootools/js/mootools.min.js');
+    $objCombiner->add('assets/colorpicker/js/mooRainbow.min.js');
+    $objCombiner->add('assets/chosen/js/chosen.min.js');
+    $objCombiner->add('assets/simplemodal/js/simplemodal.min.js');
+    $objCombiner->add('assets/datepicker/js/datepicker.min.js');
+    $objCombiner->add('bundles/contaocore/mootao.min.js');
+    $objCombiner->add('bundles/contaocore/core.min.js');
+    $objCombiner->add('system/themes/'.$this->theme.'/hover.min.js');
+    echo $objCombiner->getCombinedFile();
+    ?>"></script>
+<?php endif; ?>
+
+    <script><?= $this->getDateString() ?></script>
+
+<?= $this->javascripts ?>
+
+<?php $this->endblock(); ?>
+
+
+<?php $this->block('main'); ?>
+    <main id="main" aria-labelledby="main_headline">
+        <h1 id="main_headline"><?= $this->headline ?></h1>
+        <div class="content">
+            <div id="toastCalendar-<?= $id = md5($this->id . microtime()) ?>" class="toastCalendar">
+                <div class="inner">
+                    <div class="toastCalendarHeaderRow">
+                        <div class="inner tl_submit_container">
+                            <div class="calendarPrev">
+                                <button class="calendarPrevButton tl_submit"><span class="text">Previous</span></button>
+                            </div>
+                            <div class="calendarToday">
+                                <button class="calendarTodayButton tl_submit">Today</button>
+                            </div>
+                            <div class="calendarTitle"></div>
+                            <div class="changeCalendarView">
+                                <label>View: </label>
+                                <select name="changeCalendarViewSelect" class="changeCalendarViewSelect">
+                                    <option value="month" selected="selected">Month</option>
+                                    <option value="week">Week</option>
+                                    <option value="day">Day</option>
+                                </select>
+                            </div>
+                            <div class="calendarNext">
+                                <button class="calendarNextButton tl_submit"><span class="text">Next</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="calendarElement" style="height: 600px;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+<?php
+$objCalendar = CalendarModel::findByNameRowIdAndFromTable(Input::get('name'), Input::get('id'), Input::get('table'));
+$objEvents = $objCalendar === null ? null : EventModel::findByPid($objCalendar->id);
+?>
+    <script>
+        jQuery(document).ready(function(){
+            window.toastCalendars = window.toastCalendars || [];
+            window.toastCalendars[window.toastCalendars.length] = App.ToastCalendar.create(
+                jQuery('#toastCalendar-<?= $id ?>'), {
+                    calendarId: <?= $objCalendar === null ? 0 : $objCalendar->id ?>,
+                    calendarFromTable: '<?= Input::get('table') ?>',
+                    calendarRowId: <?= \intval(Input::get('id')) ?>,
+                    calendarName: '<?= Input::get('name') ?>',
+                    events: <?= $objEvents === null ? '[]' : json_encode($objEvents->fetchAll()) ?>,
+                    sendToDatasource: true,
+                    calendarOptions: {
+                        defaultView: 'week',
+                        isReadOnly: false,
+                        useFormPopup: true,
+                        useDetailPopup: true,
+                        usageStatistics: false, // Don't send data back to Toast peeps
+                        week: {
+                            taskView: false
+                        }
+                    }
+                }
+            );
+        });
+    </script>
+<?php $this->endblock(); ?>

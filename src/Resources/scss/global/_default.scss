@@ -1,0 +1,62 @@
+
+/**
+ * Copyright (C) 2022 Rhyme Digital, LLC.
+ *
+ * @link       https://rhyme.digital
+ * @license    http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+ */
+
+@media screen and (min-width: 0px) {
+
+	// Todo: this needs to be updated to be global and
+	//  allow different plugins to stem from it...
+	.calendarWidgetHeaderRow {
+		
+		> .inner {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.calendarTitle {
+			font-size: 30px;
+			font-weight: 600;
+		}
+		button,
+		select {
+			background-color: #fff;
+		}
+	}
+	
+	.changeCalendarViewSelect {
+		padding: 10px 15px;
+		cursor: pointer;
+		outline: none;
+	}
+	.calendarPrevButton,
+	.calendarNextButton {
+		border: 1px solid #999;
+		border-radius: 50%;
+		
+		.text {
+			display: none;
+		}
+		
+		&:before {
+			content: '';
+			height: 30px;
+			width: 30px;
+			display: inline-block;
+			background-size: 120%;
+			background-image: url('../../../../system/themes/flexible/icons/hints.svg');
+		}
+	}
+	.calendarPrevButton:before {
+		background-position: -10px -500px;
+	}
+	.calendarNextButton:before {
+		background-position: -7px -298px;
+	}
+	
+	
+}
