@@ -1,0 +1,3 @@
+rhyme_calendar_widget:
+  resource: "@RhymeCalendarWidgetBundle/Controller"
+  type:     annotation

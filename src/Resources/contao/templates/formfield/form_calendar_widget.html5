@@ -1,0 +1,79 @@
+<?php
+use Rhyme\CalendarWidget\Model\Event as EventModel;
+?>
+<div class="hiddenCalendarWidget">
+<div data-id="toastCalendar-<?= $this->id . '-' . $this->calendar->id ?>" class="toastCalendar">
+    <div class="inner">
+        <div class="toastCalendarHeaderRow">
+            <div class="inner">
+                <div class="calendarPrev">
+                    <button class="calendarPrevButton"><span class="text">Previous</span><i class="fas fa-arrow-left"></i></button>
+                </div>
+                <div class="calendarToday">
+                    <button class="calendarTodayButton"><span class="text">Today</span></button>
+                </div>
+                <div class="calendarTitle"></div>
+                <div class="changeCalendarView">
+                    <div class="inner">
+                        <i class="fas fa-caret-down"></i>
+                        <select name="changeCalendarViewSelect" class="changeCalendarViewSelect">
+                            <option value="month">Month</option>
+                            <option value="week" selected="selected">Week</option>
+                            <option value="day">Day</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="calendarNext">
+                    <button class="calendarNextButton"><span class="text">Next</span><i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="calendarElement" style="height: 600px;">
+
+        </div>
+    </div>
+</div>
+</div>
+
+<?php // Don't show event names in FE
+
+if ($this->events !== null) {
+    while ($this->events->next())
+    {
+        $this->events->name = 'Existing event';
+    }
+    $this->events->reset();
+}
+?>
+
+<script>
+	jQuery(document).ready(function(){
+		let events = <?= $this->events === null ? '[]' : json_encode($this->events->fetchAll()) ?>;
+		events.forEach(function(event, index){
+			events[index].isReadOnly = true;
+			events[index].backgroundColor = '#528db9';
+		});
+
+		window.toastCalendars = window.toastCalendars || [];
+		window.toastCalendars[window.toastCalendars.length] = App.ToastCalendar.create(
+			jQuery('[data-id="toastCalendar-<?= $this->id . '-' . $this->calendar->id ?>"]'), {
+				calendarId: <?= $this->calendar === null ? 0 : $this->calendar->id ?>,
+				calendarFromTable: '<?= $this->calendar->fromTable ?>',
+				calendarRowId: <?= $this->calendar->id ?>,
+				calendarName: '<?= \str_replace("'", "\'", $this->calendar->name) ?>',
+				events: events,
+				sendToDatasource: false,
+				calendarOptions: {
+					defaultView: 'week',
+					isReadOnly: false,
+					useFormPopup: true,
+					useDetailPopup: true,
+					usageStatistics: false, // Don't send data back to Toast peeps
+					week: {
+						taskView: false
+					}
+				}
+			}
+		);
+	});
+</script>

@@ -1,0 +1,37 @@
+<div class="selector_container">
+    <input type="hidden" name="<?= $this->strName ?>" id="ctrl_<?= $this->strId ?>" value=""<?= ($this->onchange ? ' onchange="' . $this->onchange . '"' : '') ?>>
+    <ul id="sort_<?= $this->strId ?>">
+        <li data-id="">( <?= $this->eventCount ?> events )</li>
+    </ul>
+    <p><a href="<?= $this->modalUrl ?>" class="tl_submit" id="rhyme_cw_<?= $this->strName ?>" id="toastCalendarButton-<?= $id = md5($this->id . microtime()) ?>"><?= $GLOBALS['TL_LANG']['MSC']['changeSelection'] ?></a></p>
+</div>
+
+<script>
+    jQuery(document).ready(function(){
+        jQuery('body').on('click', '#rhyme_cw_<?= $this->strName ?>', function(e){
+            e.preventDefault();
+            Rhyme.CalendarWidget.openCalendarModal({
+                "id": "tl_listing",
+                "title": <?= json_encode($GLOBALS['TL_DCA'][$this->strTable]['fields'][$this->strField]['label'][0] ?? '') ?>,
+                "url": e.currentTarget.href + document.getElementById("ctrl_<?= $this->strId ?>").value,
+                "callback": function() {
+                    new Request.Contao({
+                        evalScripts: false,
+                        onSuccess: function(txt, json) {
+                            document.id("ctrl_<?= $this->strId ?>").getParent("div").set("html", json.content);
+                            json.javascript && Browser.exec(json.javascript);
+                        }
+                    }).post(
+                        <?= json_encode([
+                            'action'            => 'reloadRhymeCalendarWidget',
+                            'name'              => $this->strName,
+                            'REQUEST_TOKEN'     => REQUEST_TOKEN,
+                            'widgetClassName'   => $this->widgetClassName,
+                        ]) ?>
+                    );
+                }
+            });
+            return false;
+        });
+    });
+</script>

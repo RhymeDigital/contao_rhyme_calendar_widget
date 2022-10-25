@@ -1,0 +1,13 @@
+services:
+    _defaults:
+        autoconfigure: true
+        autowire: true
+
+    _instanceof:
+        Contao\CoreBundle\Framework\FrameworkAwareInterface:
+            calls:
+                - ["setFramework", ["@contao.framework"]]
+
+    Rhyme\CalendarWidget\Controller\:
+        resource: '../../Controller'
+        tags: ['controller.service_arguments']

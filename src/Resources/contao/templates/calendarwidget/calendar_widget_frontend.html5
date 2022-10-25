@@ -1,0 +1,33 @@
+<div class="hiddenCalendarWidget">
+<div data-id="toastCalendar-<?= $this->id . '-' . $this->calendar->id ?>" class="toastCalendar">
+    <div class="inner">
+        <div class="toastCalendarHeaderRow">
+            <div class="inner">
+                <div class="calendarPrev">
+                    <button class="calendarPrevButton"><span class="text">Previous</span><i class="fas fa-arrow-left"></i></button>
+                </div>
+                <div class="calendarToday">
+                    <button class="calendarTodayButton"><span class="text">Today</span></button>
+                </div>
+                <div class="calendarTitle"></div>
+                <div class="changeCalendarView">
+                    <div class="inner">
+                        <i class="fas fa-caret-down"></i>
+                        <select name="changeCalendarViewSelect" class="changeCalendarViewSelect">
+                            <option value="month">Month</option>
+                            <option value="week" selected="selected">Week</option>
+                            <option value="day">Day</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="calendarNext">
+                    <button class="calendarNextButton"><span class="text">Next</span><i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="calendarElement" style="height: 600px;">
+
+        </div>
+    </div>
+</div>
+</div>

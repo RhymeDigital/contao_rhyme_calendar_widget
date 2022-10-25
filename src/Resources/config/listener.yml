@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autoconfigure: true
+
+    Rhyme\CalendarWidget\EventListener\ExecutePostActions\ReloadCalendarWidget:
+        tags:
+            - { name: contao.hook, hook: executePostActions }
+
+    Rhyme\CalendarWidget\EventListener\LoadLanguageFile\LoadJqueryBackend:
+        tags:
+            - { name: contao.hook, hook: loadLanguageFile }
+
+    Rhyme\CalendarWidget\EventListener\LoadLanguageFile\LoadBackendScripts:
+        tags:
+            - { name: contao.hook, hook: loadLanguageFile }
