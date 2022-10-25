@@ -11,6 +11,7 @@ namespace Rhyme\CalendarWidget\EventListener\LoadLanguageFile;
 
 use Contao\ArrayUtil;
 use Haste\Util\Debug;
+use Rhyme\CalendarWidget\Helper\ScopeHelper;
 
 
 /**
@@ -33,7 +34,7 @@ class LoadJqueryBackend
      */
     public static function run(string $strName, string $strLanguage, string $strCacheKey)
     {
-        if (TL_MODE !== 'BE' || static::$blnIsLoaded === true) {
+        if (!ScopeHelper::isBackend() || static::$blnIsLoaded === true) {
             return;
         }
 

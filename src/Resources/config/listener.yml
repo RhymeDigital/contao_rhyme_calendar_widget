@@ -9,7 +9,3 @@ services:
     Rhyme\CalendarWidget\EventListener\LoadLanguageFile\LoadJqueryBackend:
         tags:
             - { name: contao.hook, hook: loadLanguageFile }
-
-    Rhyme\CalendarWidget\EventListener\LoadLanguageFile\LoadBackendScripts:
-        tags:
-            - { name: contao.hook, hook: loadLanguageFile }
