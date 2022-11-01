@@ -23,7 +23,7 @@ use Rhyme\CalendarWidget\Model\Event as EventModel;
 use Rhyme\CalendarWidget\Model\Calendar as CalendarModel;
 
 /**
- * Class ToastCalendarWidget
+ * Class CalendarWidget
  * @package Rhyme\CalendarWidget\Widget
  */
 class CalendarWidget extends CalendarWidgetBase

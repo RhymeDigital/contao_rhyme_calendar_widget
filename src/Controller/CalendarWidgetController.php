@@ -41,12 +41,12 @@ class CalendarWidgetController extends AbstractController
     {
         $this->initializeContaoFramework();
 
-        $strClass = Input::post('widgetClassName') ? \urldecode(Input::post('widgetClassName')): (ScopeHelper::isBackend() ? $GLOBALS['BE_FFL']['toastCalendar'] : $GLOBALS['TL_FFL']['toastCalendar']);
+        $strClass = Input::post('widgetClassName') ? \urldecode(Input::post('widgetClassName')) : (ScopeHelper::isBackend() ? $GLOBALS['BE_FFL']['rhymeCalendarWidget'] : $GLOBALS['TL_FFL']['rhymeCalendarWidget']);
         if (!$strClass || !class_exists($strClass)) {
-            new JsonResponse([
+            return new JsonResponse([
                 'success'   => false,
                 'message'   => 'The class "'.$strClass.'" does not exist.',
-                'rt'        => System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue(),
+                'rt'        => REQUEST_TOKEN,
             ]);
         }
 
@@ -60,7 +60,7 @@ class CalendarWidgetController extends AbstractController
             return new JsonResponse([
                 'success'   => false,
                 'message'   => $e->getMessage(),
-                'rt'        => System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue(),
+                'rt'        => REQUEST_TOKEN,
             ]);
         }
 
@@ -68,7 +68,7 @@ class CalendarWidgetController extends AbstractController
             'success'   => true,
             'event'     => $event->row(),
             'calendar'  => $event->getRelated('pid')->row(),
-            'rt'        => System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue(),
+            'rt'        => REQUEST_TOKEN,
         ]);
     }
 
@@ -85,12 +85,12 @@ class CalendarWidgetController extends AbstractController
     {
         $this->initializeContaoFramework();
 
-        $strClass = Input::post('widgetClassName') ? \urldecode(Input::post('widgetClassName')): (ScopeHelper::isBackend() ? $GLOBALS['BE_FFL']['toastCalendar'] : $GLOBALS['TL_FFL']['toastCalendar']);
+        $strClass = Input::post('widgetClassName') ? \urldecode(Input::post('widgetClassName')): (ScopeHelper::isBackend() ? $GLOBALS['BE_FFL']['rhymeCalendarWidget'] : $GLOBALS['TL_FFL']['rhymeCalendarWidget']);
         if (!$strClass || !class_exists($strClass)) {
             new JsonResponse([
                 'success'   => false,
                 'message'   => 'The class "'.$strClass.'" does not exist.',
-                'rt'        => System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue(),
+                'rt'        => REQUEST_TOKEN,
             ]);
         }
 
@@ -100,7 +100,7 @@ class CalendarWidgetController extends AbstractController
                 return new JsonResponse([
                     'success'   => false,
                     'message'   => 'The delete method failed.',
-                    'rt'        => System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue(),
+                    'rt'        => REQUEST_TOKEN,
                 ]);
             }
         }
@@ -108,13 +108,13 @@ class CalendarWidgetController extends AbstractController
             return new JsonResponse([
                 'success'   => false,
                 'message'   => $e->getMessage(),
-                'rt'        => System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue(),
+                'rt'        => REQUEST_TOKEN,
             ]);
         }
 
         return new JsonResponse([
             'success'   => true,
-            'rt'        => System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue(),
+            'rt'        => REQUEST_TOKEN,
         ]);
     }
 
