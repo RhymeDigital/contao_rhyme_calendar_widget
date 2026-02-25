@@ -1,3 +1,4 @@
+<?php $GLOBALS['TL_JAVASCRIPT']['rhyme_calendar_widget'] = 'bundles/rhymecalendarwidget/assets/js/util.js|static'; ?>
 <div class="selector_container">
     <input type="hidden" name="<?= $this->strName ?>" id="ctrl_<?= $this->strId ?>" value=""<?= ($this->onchange ? ' onchange="' . $this->onchange . '"' : '') ?>>
     <ul id="sort_<?= $this->strId ?>">

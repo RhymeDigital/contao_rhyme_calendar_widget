@@ -1,3 +1,4 @@
+<?php $GLOBALS['TL_JAVASCRIPT']['rhyme_calendar_widget'] = 'bundles/rhymecalendarwidget/assets/js/util.js|static'; ?>
 <div class="hiddenCalendarWidget">
 <div data-id="toastCalendar-<?= $this->id . '-' . $this->calendar->id ?>" class="toastCalendar">
     <div class="inner">
